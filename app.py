@@ -18,6 +18,8 @@ db.create_all()
 
 @app.route('/')
 def show_all_pets():
+    """Displays all pets, separating available from not available"""
+
     avail_pets = Pet.query.filter_by(available = True).all()
     nonavail_pets = Pet.query.filter_by(available = False).all()
     return render_template('home.html', 
@@ -50,6 +52,8 @@ def add_pet():
 
 @app.route('/<int:id>', methods=['GET', 'POST'])
 def edit_pet(id):
+    """Shows edit pet form and handles form submission"""
+    
     pet = Pet.query.get_or_404(id)
     form = EditPetForm(obj=pet)
 
