@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Adopt a Pet{% endblock %}
+
+{% block content %}
+<section class = "container-fluid m-4">
+    <div class="row">
+        <h1 class="col-8">Pets</h1>
+        <div class="col-3 text-center">
+            <a class="btn btn-info btn-block" href="/add">Add Pet</a>
+        </div>
+    </div>
+    <h3>Ready to Adopt</h3>
+    <div class="row">
+    {% for pet in avail_pets %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                {% if pet.photo_url %}
+                <img class= "img-thumbnail"src = "{{pet.photo_url}}"> 
+                {% endif %}
+                <p><a class="text-info" href = "/{{pet.id}}">{{pet.name}} </a><b>is available!</b></p>
+            </div>  
+    {% endfor %}
+    </div>
+    <hr>
+    <h3>Adopted</h3>
+    <div class="row">
+    {% for pet in nonavail_pets %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                {% if pet.photo_url %}
+                <img class= "img-thumbnail"src = "{{pet.photo_url}}"> 
+                {% endif %}
+                <p><a class="text-info" href = "/{{pet.id}}">{{pet.name}} </a><b>is not available!</b></p>
+            </div>  
+    {% endfor %}
+    </div>
+</section>
+{% endblock %}

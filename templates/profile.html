@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{pet.name}}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="container col-sm-6 col-8">
+        {% if pet.photo_url %}
+        <img class="img-thumbnail" src ="{{pet.photo_url}}">
+        {% endif %}
+        <div class="m-4">
+            <h3>{{pet.name}}</h3>
+            <p><b>Species: </b>{{pet.species}}
+            <br>
+            <b>Age: </b>{{pet.age}}
+            <br>
+            <b>Notes: </b>{{pet.notes}}</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="container jumbotron col-sm-6 col-8">
+        <h4>Edit {{pet.name}}'s Info</h4>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+                 {% for field in form if field.widget.input_type != 'hidden'%}
+                     <div class="form-group">
+                        {{field.label}}
+                        {% if field.type == 'BooleanField' %}
+                            {{field}}
+                        {% else %}
+                            {{field(class_="form-control")}}
+                        {% endif %}
+
+                        {% if field.errors %}
+                             {% for err in field.errors %}
+                             <small class="form-text text-danger">
+                                 {{err}}
+                             </small>
+                             {% endfor %}
+                        {% endif %}
+                     </div>
+                 {% endfor %}
+            <button class="btn btn-success btn-lg">Save</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
